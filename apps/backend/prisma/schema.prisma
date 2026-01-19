@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      Role     @default(SUPERADMIN)
+  createdAt DateTime @default(now())
+}
+
+model Tenant {
+  id            String   @id @default(cuid())
+  name          String
+  branding      Branding?
+  domains       Domain[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Branding {
+  id          String   @id @default(cuid())
+  tenantId    String   @unique
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  logoUrl     String?
+  primaryColor String?
+  supportEmail String?
+  appName     String?
+}
+
+model Domain {
+  id         String   @id @default(cuid())
+  hostname   String   @unique
+  verifiedAt DateTime?
+  tenantId   String
+  tenant     Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+}
+
+enum Role {
+  SUPERADMIN
+}
