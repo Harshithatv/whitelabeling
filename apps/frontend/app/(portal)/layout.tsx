@@ -15,6 +15,13 @@ export default async function PortalLayout({ children }: { children: React.React
     supportEmail: "support@platform.local",
   };
   const tenantName = tenant?.name || branding.appName;
+  const backendBase =
+    process.env.BACKEND_URL ||
+    process.env.NEXT_PUBLIC_API_URL ||
+    "http://localhost:4000";
+  const logoSrc = branding.logoUrl?.startsWith("/uploads")
+    ? `${backendBase}${branding.logoUrl}`
+    : branding.logoUrl || "/default-logo.svg";
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -26,7 +33,7 @@ export default async function PortalLayout({ children }: { children: React.React
               style={{ borderColor: branding.primaryColor, background: `${branding.primaryColor}1A` }}
             >
               <img
-                src={branding.logoUrl || "/default-logo.svg"}
+                src={logoSrc}
                 alt={`${tenantName} logo`}
                 className="h-9 w-9 object-contain"
               />
