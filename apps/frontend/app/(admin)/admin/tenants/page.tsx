@@ -27,6 +27,10 @@ export default function TenantsPage() {
   const [logoFile, setLogoFile] = useState<File | null>(null);
 
   const token = typeof window !== "undefined" ? localStorage.getItem("token") : "";
+  const backendBase =
+    process.env.NEXT_PUBLIC_API_URL ||
+    process.env.BACKEND_URL ||
+    "http://localhost:4000";
 
   const load = async () => {
     const data = await apiFetch("/admin/tenants", {
@@ -171,7 +175,12 @@ export default function TenantsPage() {
                 </tr>
               </thead>
               <tbody>
-                {tenants.map(t => (
+                {tenants.map(t => {
+                  const logoSrc =
+                    t.branding?.logoUrl?.startsWith("/uploads")
+                      ? `${backendBase}${t.branding.logoUrl}`
+                      : t.branding?.logoUrl || "";
+                  return (
                   <tr key={t.id} className="border-b border-slate-100 text-slate-700">
                     <td className="py-3 pr-4 font-medium text-slate-900">{t.name}</td>
                     <td className="py-3 pr-4">
@@ -193,9 +202,9 @@ export default function TenantsPage() {
                     </td>
                     <td className="py-3 pr-4">{t.branding?.supportEmail || "—"}</td>
                     <td className="py-3 pr-4">
-                      {t.branding?.logoUrl ? (
+                      {logoSrc ? (
                         <img
-                          src={t.branding.logoUrl}
+                          src={logoSrc}
                           alt={`${t.name} logo`}
                           className="h-8 w-auto rounded"
                         />
@@ -204,7 +213,8 @@ export default function TenantsPage() {
                       )}
                     </td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>
