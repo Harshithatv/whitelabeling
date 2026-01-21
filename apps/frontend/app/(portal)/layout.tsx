@@ -37,6 +37,14 @@ export default async function PortalLayout({ children }: { children: React.React
               <p className="text-sm text-slate-500">{branding.appName}</p>
             </div>
           </div>
+          <nav className="mt-4 flex gap-4 text-sm text-slate-600">
+            <a className="rounded-md px-3 py-2 hover:bg-slate-100" href="/portal">
+              Overview
+            </a>
+            <a className="rounded-md px-3 py-2 hover:bg-slate-100" href="/portal/details">
+              Tenant Details
+            </a>
+          </nav>
           <div className="mt-4 h-1 w-24 rounded-full" style={{ background: branding.primaryColor }} />
         </div>
       </header>

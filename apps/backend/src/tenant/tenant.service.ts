@@ -21,7 +21,7 @@ export class TenantService {
       const fallback = await this.prisma.domain.findUnique({
         where: { hostname: hostWithoutPort },
         include: { tenant: { include: { branding: true } } },
-      });
+    });
       return fallback?.tenant ?? null;
     }
 

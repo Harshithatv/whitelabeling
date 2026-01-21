@@ -1,4 +1,3 @@
-
 # White‑Label Domain Platform – Production Documentation
 
 This document describes the production design and operational flow for the white‑label domain system implemented in this project. It includes system behavior, domain/SSL flow, branding, tenant routing, and the required steps clients must follow to configure their domains.
