@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import { getTenant } from "../../../lib/tenant";
+import { getTenant } from "../../../../lib/tenant";
 
 export default async function TenantDetailsPage() {
   const h = await headers();
