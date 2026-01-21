@@ -4,7 +4,7 @@ import { getTenant } from "../../../../lib/tenant";
 export default async function TenantDetailsPage() {
   const h = await headers();
   const host = h.get("host") || "";
-  const tenant = await getTenant(host); 
+  const tenant = await getTenant(host);   
   
 
   return (
