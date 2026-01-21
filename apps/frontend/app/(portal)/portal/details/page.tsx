@@ -5,7 +5,7 @@ export default async function TenantDetailsPage() {
   const h = await headers();
   const host = h.get("host") || "";
   const tenant = await getTenant(host);
- 
+  
 
   return (
     <section className="space-y-6">
