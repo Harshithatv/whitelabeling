@@ -3,10 +3,13 @@ export async function getTenant(host: string) {
   const timeout = setTimeout(() => controller.abort(), 3000);
 
   try {
-    const baseUrl =
-      process.env.BACKEND_URL ||
-      process.env.NEXT_PUBLIC_API_URL ||
-      "http://localhost:4000";
+    const isLocalHost =
+      host.includes("localhost") ||
+      host.includes("127.0.0.1") ||
+      host.endsWith(".local");
+    const baseUrl = isLocalHost
+      ? "http://localhost:4000"
+      : process.env.BACKEND_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
     const url = `${baseUrl}/public/tenant?host=${encodeURIComponent(host)}`;
     const res = await fetch(url, { cache: "no-store", signal: controller.signal });
     if (res.ok) {
