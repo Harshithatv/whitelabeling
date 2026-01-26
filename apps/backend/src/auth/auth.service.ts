@@ -5,11 +5,7 @@ import * as jwt from "jsonwebtoken";
 
 @Injectable()
 export class AuthService {
-  private prisma = new PrismaClient({
-    datasources: {
-      db: { url: process.env.DATABASE_URL },
-    },
-  });
+  private prisma = new PrismaClient();
 
   async login(email: string, password: string) {
     const user = await this.prisma.user.findUnique({ where: { email } });
@@ -25,5 +21,37 @@ export class AuthService {
     );
 
     return { token };
+  }
+
+  async loginClient(email: string, password: string) {
+    const client = await this.prisma.clientUser.findUnique({
+      where: { email },
+      include: { tenant: { include: { branding: true } } },
+    });
+    if (!client) throw new UnauthorizedException("Invalid credentials");
+
+    const ok = await bcrypt.compare(password, client.password);
+    if (!ok) throw new UnauthorizedException("Invalid credentials");
+
+    const token = jwt.sign(
+      { sub: client.id, role: "CLIENT", tenantId: client.tenantId },
+      process.env.JWT_SECRET!,
+      { expiresIn: "7d" }
+    );
+
+    return { token };
+  }
+
+  async getClientProfile(clientId: string) {
+    const client = await this.prisma.clientUser.findUnique({
+      where: { id: clientId },
+      include: { tenant: { include: { branding: true } } },
+    });
+    if (!client) throw new UnauthorizedException("Invalid credentials");
+
+    return {
+      email: client.email,
+      tenant: client.tenant,
+    };
   }
 }

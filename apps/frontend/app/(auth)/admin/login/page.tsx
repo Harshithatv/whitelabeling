@@ -23,7 +23,7 @@ export default function AdminLogin() {
       <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-xl">
         <div className="mb-6">
           <p className="text-sm uppercase tracking-[0.2em] text-slate-400">Superadmin</p>
-          <h1 className="mt-2 text-2xl font-semibold text-slate-900">Sign in to manage tenants</h1>
+          <h1 className="mt-2 text-2xl font-semibold text-slate-900">Sign in to manage clients</h1>
           <p className="mt-2 text-sm text-slate-500">
             Use your superadmin credentials to access the dashboard.
           </p>

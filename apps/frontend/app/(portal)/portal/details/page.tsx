@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { getTenant } from "../../../../lib/tenant";
 
-export default async function TenantDetailsPage() {
+export default async function ClientDetailsPage() {
   const h = await headers();
   const host = h.get("host") || "";
   const tenant = await getTenant(host);   
@@ -9,14 +9,14 @@ export default async function TenantDetailsPage() {
   return (
     <section className="space-y-6">
       <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h1 className="text-2xl font-semibold text-slate-900">Tenant Details</h1>
+        <h1 className="text-2xl font-semibold text-slate-900">Client Details</h1>
         <p className="mt-2 text-sm text-slate-500">
-          This page confirms tenant data and navigation works on the client domain.
+          This page confirms client data and navigation works on the client domain.
         </p>
 
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-            <p className="text-xs uppercase text-slate-400">Tenant Name</p>
+            <p className="text-xs uppercase text-slate-400">Client Name</p>
             <p className="mt-2 text-sm font-semibold text-slate-900">
               {tenant?.name || "Default Platform"}
             </p>

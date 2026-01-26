@@ -6,7 +6,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="text-lg font-semibold text-slate-900">WhiteLabel Admin</div>
           <nav className="mt-8 space-y-3 text-sm text-slate-600">
             <a className="block rounded-md px-3 py-2 hover:bg-slate-100" href="/admin/tenants">
-              Tenants
+              Clients
             </a>
             <a className="block rounded-md px-3 py-2 hover:bg-slate-100" href="/admin/login">
               Log out

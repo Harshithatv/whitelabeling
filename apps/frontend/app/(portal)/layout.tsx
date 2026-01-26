@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import { getTenant } from "../../lib/tenant";
+import PortalNav from "./PortalNav";
 
 export const dynamic = "force-dynamic";
 
@@ -42,19 +43,12 @@ export default async function PortalLayout({ children }: { children: React.React
               />
             </div>
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Tenant Portal</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Client Portal</p>
               <h1 className="text-2xl font-semibold text-slate-900">{tenantName}</h1>
               <p className="text-sm text-slate-500">{branding.appName}</p>
             </div>
           </div>
-          <nav className="mt-4 flex gap-4 text-sm text-slate-600">
-            <a className="rounded-md px-3 py-2 hover:bg-slate-100" href="/portal">
-              Overview
-            </a>
-            <a className="rounded-md px-3 py-2 hover:bg-slate-100" href="/portal/details">
-              Tenant Details
-            </a>
-          </nav>
+          <PortalNav />
           <div className="mt-4 h-1 w-24 rounded-full" style={{ background: branding.primaryColor }} />
         </div>
       </header>
@@ -63,7 +57,7 @@ export default async function PortalLayout({ children }: { children: React.React
       </main>
       <footer className="border-t border-slate-200 bg-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4 text-sm text-slate-500">
-          <span>Support: {branding.supportEmail}</span>
+            <span>Email: {branding.supportEmail}</span>
           <span>Powered by WhiteLabel</span>
         </div>
       </footer>
